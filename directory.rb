@@ -26,7 +26,12 @@ end
 def print(students)
   count = 0
   while count < students.length
-    puts "#{students[count].key(count).to_i + 1}. #{students[count][:name]} - Hobby: #{students[count][:hobby]} - Height: #{students[count][:height]} (#{students[count][:cohort]} cohort)"
+    student_number = "#{students[count].key(count).to_i + 1}."
+    student_name = "#{students[count][:name]}"
+    student_hobby= "Hobby: #{students[count][:hobby]}"
+    student_height = "Height: #{students[count][:height]}"
+    student_cohort = "(#{students[count][:cohort]} cohort)"
+    puts student_number.center(10) + student_name.center(15) + student_hobby.center(15) + student_height.center(15) + student_cohort.center(15)
     count += 1
   end
 end
