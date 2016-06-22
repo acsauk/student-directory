@@ -6,13 +6,33 @@ def input_students
   students = []
   # get the first name
   name = gets.chomp
+  # Exits program if user doesn't enter a name
+  if name.empty?
+    exit
+  end
+  puts "Thanks. Which cohort will they be joining?"
+  cohort_var = gets.chomp.downcase.to_sym
+  # Uses :unkown as default value if user doesnt enter anything
+  if cohort_var.empty?
+    cohort_var = :unknown
+  end
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to array
-    students << {name: name, cohort: :november, hobby: :tennis, height: :fivefeet}
+    students << {name: name, cohort: cohort_var, hobby: :tennis, height: :fivefeet}
     puts "Now we have #{students.count} students"
+    puts "Enter another name or hit enter again to quit"
     # get another name from the user
     name = gets.chomp
+      # Checks if user entered blank. If so skips asking for Cohort.
+      if !name.empty?
+        puts "Thanks. Which cohort will they be joining?"
+        cohort_var = gets.chomp.downcase.to_sym
+        # Uses :unkown as default value if user doesnt enter anything
+        if cohort_var.empty?
+          cohort_var = :unknown
+        end
+      end
   end
   # return the array of students
   students
@@ -29,7 +49,7 @@ def print(students)
     student_number = "#{students[count].key(count).to_i + 1}."
     student_name = "#{students[count][:name]}"
     student_hobby= "Hobby: #{students[count][:hobby]}"
-    student_height = "Height: #{students[count][:height]}"
+    student_height = "Height: #{students[count][:height] }"
     student_cohort = "(#{students[count][:cohort]} cohort)"
     puts student_number.center(10) + student_name.center(15) + student_hobby.center(15) + student_height.center(15) + student_cohort.center(15)
     count += 1
