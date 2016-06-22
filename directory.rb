@@ -20,7 +20,11 @@ def input_students
   while !name.empty? do
     #add the student hash to array
     students << {name: name, cohort: cohort_var, hobby: :tennis, height: :fivefeet}
-    puts "Now we have #{students.count} students"
+    if students.length > 1
+      puts "Now we have #{students.count} students"
+    else
+      puts "Now we have #{students.count} student"
+    end
     puts "Enter another name or hit enter again to quit"
     # get another name from the user
     name = gets.chomp
@@ -33,8 +37,11 @@ def input_students
           cohort_var = :unknown
         end
       end
+      # Creates variable that contains all the different cohort months with dupes removed
+      months = students.map {|i| i[:cohort]}
+      months.uniq!
   end
-  # return the array of students
+  # return the array of students and months of cohorts
   students
 end
 
@@ -57,7 +64,11 @@ def print(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  if students.length > 1
+    puts "Overall, we have #{students.count} great students"
+  else
+    puts "Overall, we have #{students.count} great student"
+  end
 end
 
 # Nothing happens until we call the methods, feeding
