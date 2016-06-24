@@ -88,26 +88,25 @@ def interactive_menu
 end
 
 def save_students
-  file = File.open("students.csv", "w")
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  file = File.open("students.csv", "w") do |test|
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      test.puts csv_line
+    end
   end
-  file.close
   puts "Saved student info successfully"
 end
 
 def load_students(filename = "students.csv")
   puts "Please enter filename in format 'example.csv'"
   input = STDIN.gets.chomp
-  file = File.open(input, "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-      #@students << {name: name, cohort: cohort.to_sym}
+  file = File.open(input, "r") do |test|
+    test.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
       students_to_hash(name, cohort)
     end
-    file.close
+  end
     puts "Loaded student info successfully"
 end
 
