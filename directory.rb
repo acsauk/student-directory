@@ -21,6 +21,7 @@ def input_students
   puts "To finish, just hit return twice"
   name = STDIN.gets.chomp
   cohort = "november"
+  puts "#{name} added succesfully. Please add another name or hit return again to exit"
   print_no_of_students(name, cohort)
 end
 
@@ -87,25 +88,27 @@ def interactive_menu
 end
 
 def save_students
-  # open file for writin
   file = File.open("students.csv", "w")
-  # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
   file.close
+  puts "Saved student info successfully"
 end
 
 def load_students(filename = "students.csv")
-  file = File.open("students.csv", "r")
+  puts "Please enter filename in format 'example.csv'"
+  input = STDIN.gets.chomp
+  file = File.open(input, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
       #@students << {name: name, cohort: cohort.to_sym}
       students_to_hash(name, cohort)
     end
     file.close
+    puts "Loaded student info successfully"
 end
 
 def try_load_students
