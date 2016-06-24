@@ -21,6 +21,10 @@ def input_students
   puts "To finish, just hit return twice"
   name = STDIN.gets.chomp
   cohort = "november"
+  print_no_of_students(name, cohort)
+end
+
+def print_no_of_students (name, cohort)
   while !name.empty? do
     students_to_hash(name, cohort)
     puts "Now we have #{@students.count} students"
