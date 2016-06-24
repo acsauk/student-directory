@@ -19,14 +19,11 @@ students = [
 def input_students
   puts "Please enter the name of students"
   puts "To finish, just hit return twice"
-  # get the first name
   name = STDIN.gets.chomp
-  #while the name is not empty, repeat this code
+  cohort = "november"
   while !name.empty? do
-    #add the student hash to array
-    @students << {name: name, cohort: :november}
+    students_to_hash(name, cohort)
     puts "Now we have #{@students.count} students"
-    # get another name from the user
     name = STDIN.gets.chomp
   end
 end
@@ -101,12 +98,14 @@ def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-      @students << {name: name, cohort: cohort.to_sym}
+      #@students << {name: name, cohort: cohort.to_sym}
+      students_to_hash(name, cohort)
     end
     file.close
 end
 
 def try_load_students
+  ARGV << 'students.csv' if ARGV.empty?
   filename = ARGV.first # first argument from the command line
   return if filename.nil? #get out of the method if it isn't given
   if File.exists?(filename) #if it exists
@@ -118,6 +117,9 @@ def try_load_students
   end
 end
 
+def students_to_hash (name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
+end
 # Nothing happens until we call the methods, feeding
 # in the required parameters to the arguments
 
