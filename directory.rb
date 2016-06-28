@@ -14,6 +14,8 @@ students = [
   {name: "Norman Bates", cohort: :november}
 ]
 =end
+require 'csv'
+
 @students = [] # An empty array accessible to all methods
 
 def input_students
@@ -88,11 +90,12 @@ def interactive_menu
 end
 
 def save_students
-  file = File.open("students.csv", "w") do |test|
+  #file = File.open("students.csv", "w") do |test|
+  CSV.open('students.csv', "w") do |csv_object|
     @students.each do |student|
       student_data = [student[:name], student[:cohort]]
       csv_line = student_data.join(",")
-      test.puts csv_line
+      'students.csv' << csv_line
     end
   end
   puts "Saved student info successfully"
@@ -129,5 +132,11 @@ end
 # Nothing happens until we call the methods, feeding
 # in the required parameters to the arguments
 
+def file_name
+  current_file = File.basename(__FILE__)
+  puts "Opened file #{current_file}"
+end
+
+file_name
 try_load_students
 interactive_menu
